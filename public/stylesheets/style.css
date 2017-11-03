@@ -1,12 +1,10 @@
 body {
   margin: auto;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url(https://forums.unrealengine.com/filedata/fetch?id=1113441&d=1470732920);
+  font-family: 'Montserrat', sans-serif;
+  //background-image: url(https://forums.unrealengine.com/filedata/fetch?id=1113441&d=1470732920);
   background-repeat: no-repeat;
   background-size: cover;
   max-width: 100%;
-  display:flex;
-  flex-wrap: wrap;
   height: 350px;
   max-height: 100%;
     
@@ -16,50 +14,92 @@ a {
   color: #00B7FF;
 }
 
-.weather{
-    border: 5px solid darkblue;
-    opacity: 0.6;
-    background-color: #ffffff;
+#top-bar {
+    background-color: lightgrey;
+    height: 300px;
+    align-content: center;
+}
+
+#top-bar h1{
+    float: left;
+    padding: 10px;
+    overflow-wrap: normal;    
+    font-size: 72px;
+    width: 55%;
+}
+
+.input-container{
+    float: right;
+    width: 40%;
+    padding: 10px;
+    margin-top: 100px;
+}
+
+#countryField{
+    width: 65%;
+    height: 60px;
+    border-radius: 4px;
+    font-size: 22px;
+}
+
+#countryButton {
+    -webkit-appearance: none;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    width: 30%;
+    height: 60px
+    font-size: 22px
+}
+#countryHint {
+    text-align: left;
+    overflow: auto;
+    height : 80px;
+}
+.results{
+    width = 100%;
+    align-content: center;
+    
+}
+
+.results h2{
     margin: auto;
-    padding:25px;
-    max-width: 33%;
-    width:300px;
-    align-content: center;
     text-align: center;
 }
 
-.weather li{
-    text-align: left;
-}
-
-.word-define{
-    border: 5px solid darkblue;
-    opacity: 0.6;
-    background-color: #ffffff;
-     margin: auto;
-    padding:25px;
-    max-width: 33%;
-    width:300px;
-    align-content: center;
+#artist {
+    display:flex;
+    flex-wrap: wrap;
+    margin: auto;
     text-align: center;
 }
 
-.word-define li{
-    text-align: left;
+.artist-ind {
+    width: 300px;
+    max-width: 100%;
+    margin: 5px;
+
 }
 
-.se{
-    border: 5px solid darkblue;
-    opacity: 0.6;
-    background-color: #ffffff;
-     margin: auto;
-    padding:25px;
-    max-width: 33%;
-    width:300px;
-    align-content: center;
-    text-align: center;
+.artist-ind img{
+    max-width: 100%;
 }
 
-.se li{
+.artist-ind li{
     text-align: left;
+    
 }
+
+footer {
+   position: absolute;
+   left: 0;
+   bottom 0;
+   height: 40px;
+   width: 80%;
+      border-top: 1px solid black;
+   text-align: center;
+   overflow:hidden;
+   
+}
+
+
+

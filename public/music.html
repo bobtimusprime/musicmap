@@ -4,6 +4,7 @@
 
 <!--Stylesheets-->
 <link href="/stylesheets/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     
 <script
   src="http://code.jquery.com/jquery-3.2.1.min.js"
@@ -66,13 +67,14 @@ $(document).ready(function() {
              var i= parseInt(1); 
              var everything = "";
              $.each(parsed_json['topartists']['artist'], function(index, value){
-                  everything += "<ul>";
-                  everything += "<li>Artist Number: " + index;
-                  everything += "<li>Name: " + value.name;
-                  everything += "<li>URL: "+ value.url;
-                  everything += "<li>Image URL: "+ value.image[1]['#text'];
+		  everything += "<div class = artist-ind " + (index+1).toString() + ">";		
+                  everything += "<a href ="+ value.url + " target= &quot;_blank&quot;><img src = " + value.image[3]['#text'] + " alt = " + value.name + " pic></a>";
+		  everything += "<ul>";
+                  everything += "<li>Artist Number: " + (index+1).toString();
+                  everything += "<li>Name: " + value.name;                
                   everything += "</ul>";
-                  i++;
+		  everything += "</div>"		
+                  
              });
               $("#artist").html(everything); 
          // }
@@ -91,23 +93,22 @@ $(document).ready(function() {
 <body>
     
 <!--Artist portion-->
-<div class = "artist-container">   
-    <h1>Find an Artist</h1>       
-
+<div id = "top-bar">  
+    <h1>Top Artists by Country</h1>      
+<div class = "input-container"> 
     <form>
-        <input placeholder = "Enter a country" type="text" id="countryField" value=""><br>
-        Suggestion: <span id="countryHint">Empty</span>
-        <input id="countryButton" type="submit" value="Submit">
-    </form>
-
-    <div class="results">
-        <p>Artist: &nbsp;<span id="displayCountry">No artist</span></p>
-        <p>Artist Info</p>
-        <div id="artist">No artist</div>
-    </div>
+        <input placeholder = "Enter a country" type="text" id="countryField" value="">
+        <button id="countryButton" type="submit" value="Submit">Submit</button> 
+    </form><br/>
+    <div id="countryHint">Try "Spain" or "Japan"</div>
 </div>
-
-      
-
+</div>
+	
+    <div class="results">
+	<h2>Country: &nbsp;<span id="displayCountry">No country selected</span></h2>  
+        <div id="artist"></div>
+    </div>
+     
 </body>
+
 </html>
