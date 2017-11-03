@@ -1,0 +1,113 @@
+<html>
+<head>
+<title>Musician</title>
+
+<!--Stylesheets-->
+<link href="/stylesheets/style.css" rel="stylesheet">
+    
+<script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous">
+</script>
+
+
+<script>
+var lastfmKey = "fa3483fdd647a1652b1b262bc8d90b40";
+var lastfmSharedSecret = "76303a5728d9f8eb9acdef1e8bee22e7";
+
+    
+//Only load these elements once the document is ready-->
+$(document).ready(function() {
+    
+    
+    //Gives suggestions on keyup while typing  
+    $( "#countryField" ).keyup(function() {
+      $.getJSON("/getCountry?q="+$("#countryField").val(),function(data) {
+        var everything;
+        everything = "<ul>";
+        $.each(data, function(i,item) {
+          everything += "<li> "+data[i].country;
+        });
+        everything += "</ul>";
+        $("#countryHint").html(everything);
+      })
+      .done(function() { console.log('getJSON request succeeded!'); })
+      .fail(function(jqXHR, textStatus, errorThrown) { 
+        console.log('getJSON request failed! ' + textStatus); 
+        console.log("incoming "+jqXHR.responseText);
+      })
+      .always(function() { console.log('getJSON request ended!');
+      });
+    });//End countries keyup function
+    
+
+    //Search by Country  button
+     $("#countryButton").click(function(e){
+      var value = $("#countryField").val();
+      //console.log(value);
+      e.preventDefault();
+     $("#displayCountry").text(value);
+
+      var myurl= "/getTopArtist?q=";
+      myurl += value;
+      console.log("Myurl:" + myurl);
+      $.ajax({
+        url : myurl,
+        dataType : "json",
+        success : function(parsed_json) {
+	 console.log(parsed_json); 
+        // console.log(parsed_json['topartists']['artist'].length());
+        /* 
+	 if (parsed_json.length == 0) {
+              $("#displaycountry").html("Not a country - Please check spelling");
+         }
+         else { */
+             var i= parseInt(1); 
+             var everything = "";
+             $.each(parsed_json['topartists']['artist'], function(index, value){
+                  everything += "<ul>";
+                  everything += "<li>Artist Number: " + index;
+                  everything += "<li>Name: " + value.name;
+                  everything += "<li>URL: "+ value.url;
+                  everything += "<li>Image URL: "+ value.image[1]['#text'];
+                  everything += "</ul>";
+                  i++;
+             });
+              $("#artist").html(everything); 
+         // }
+          
+  
+        }
+      });//End ajax
+    }); //End word define button
+
+    
+}); //End document.ready
+</script>
+
+
+</head>
+<body>
+    
+<!--Artist portion-->
+<div class = "artist-container">   
+    <h1>Find an Artist</h1>       
+
+    <form>
+        <input placeholder = "Enter a country" type="text" id="countryField" value=""><br>
+        Suggestion: <span id="countryHint">Empty</span>
+        <input id="countryButton" type="submit" value="Submit">
+    </form>
+
+    <div class="results">
+        <p>Artist: &nbsp;<span id="displayCountry">No artist</span></p>
+        <p>Artist Info</p>
+        <div id="artist">No artist</div>
+    </div>
+</div>
+
+      
+
+</body>
+</html>
